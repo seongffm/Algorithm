@@ -1,30 +1,33 @@
-from collections import Counter
-def solution(a, b):
-    n=2
-    lst_a=[]
-    lst_b=[]
-    while a!=1:
-        if a%n==0:
-            lst_a.append(n)
-            a//=n
-        else:
-            n+=1
-    lst_a=list(set(lst_a))
-    n=2
-    while b!=1:
-        if b%n==0:
-            lst_b.append(n)
-            b//=n
-        else:
-            n+=1
-    lst_b=list(set(lst_b))
-    lst_b=Counter(lst_b)
-    lst_a=Counter(lst_a)
-    lst_b=lst_b-lst_a
-    for k,v in lst_b.items():
-        if k not in [2,5] and v>0:
-            return 2
-    return 1
-print(solution(7,20))
-print(solution(11,22))
-print(solution(12,21))
+# 특이한 정렬
+# 제출 내역
+# 문제 설명
+# 정수 n을 기준으로 n과 가까운 수부터 정렬하려고 합니다. 이때 n으로부터의 거리가 같다면 더 큰 수를 앞에 오도록 배치합니다. 정수가 담긴 배열 numlist와 정수 n이 주어질 때 numlist의 원소를 n으로부터 가까운 순서대로 정렬한 배열을 return하도록 solution 함수를 완성해주세요.
+
+# 제한사항
+# 1 ≤ n ≤ 10,000
+# 1 ≤ numlist의 원소 ≤ 10,000
+# 1 ≤ numlist의 길이 ≤ 100
+# numlist는 중복된 원소를 갖지 않습니다.
+# 입출력 예
+# numlist	n	result
+# [1, 2, 3, 4, 5, 6]	4	[4, 5, 3, 6, 2, 1]
+# [10000,20,36,47,40,6,10,7000]	30	[36, 40, 20, 47, 10, 6, 7000, 10000]
+# 입출력 예 설명
+# 입출력 예 #1
+
+# 4에서 가까운 순으로 [4, 5, 3, 6, 2, 1]을 return합니다.
+# 3과 5는 거리가 같으므로 더 큰 5가 앞에 와야 합니다.
+# 2와 6은 거리가 같으므로 더 큰 6이 앞에 와야 합니다.
+# 입출력 예 #2
+
+# 30에서 가까운 순으로 [36, 40, 20, 47, 10, 6, 7000, 10000]을 return합니다.
+# 20과 40은 거리가 같으므로 더 큰 40이 앞에 와야 합니다.
+
+#나의 아이디어
+# 절대값 리스트와, 원래 값 리스트로 나누자
+# 나눈 다음에 각각 정렬해도 합치기 어려웠음..
+
+# 해결방법
+# 정렬을 할떄 순차대로 정렬되게 , 로 정렬해보자
+def solution(numlist,n):
+    return sorted(numlist,key=lambda x : (abs(n-x),n-x))
